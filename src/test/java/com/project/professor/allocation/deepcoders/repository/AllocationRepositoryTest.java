@@ -1,7 +1,8 @@
 package com.project.professor.allocation.deepcoders.repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -30,26 +31,31 @@ public class AllocationRepositoryTest {
 	}
 	
 	@Test
-	public void create() {
+	public void create() throws ParseException {
 		Allocation newAllocation = new Allocation();
 		newAllocation.setCourseId(1L);
-		newAllocation.setProfessorId(1L);
+		newAllocation.setProfessorId(4L);
 		newAllocation.setDay(DayOfWeek.MONDAY);
-		Date start = new Date();
-		start.setTime(1000999);
-		newAllocation.setStart(start);
-		Date end = new Date();
-		end.setTime(1200999);
-		newAllocation.setEnd(end);
+		
+		SimpleDateFormat newDate = new SimpleDateFormat("HH:mmZ");
+		newAllocation.setStart(newDate.parse("12:00-0300"));
+		newAllocation.setEnd(newDate.parse("14:00-0300"));
 		
 		System.out.println(allocationRepository.save(newAllocation));
 	}
 	
 	@Test
-	public void update() {
+	public void update() throws ParseException {
 		Allocation newAllocation = new Allocation();
-		newAllocation.setProfessorId(2L);
+		newAllocation.setCourseId(1L);
+		newAllocation.setProfessorId(4L);
 		newAllocation.setId(1L);
+		
+		newAllocation.setDay(DayOfWeek.MONDAY);
+		
+		SimpleDateFormat newDate = new SimpleDateFormat("HH:mmZ");
+		newAllocation.setStart(newDate.parse("10:00-0300"));
+		newAllocation.setEnd(newDate.parse("12:00-0300"));
 		
 		System.out.println(allocationRepository.save(newAllocation));
 	}

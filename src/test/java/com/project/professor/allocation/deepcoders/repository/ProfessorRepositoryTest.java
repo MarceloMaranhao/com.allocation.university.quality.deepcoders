@@ -41,7 +41,9 @@ public class ProfessorRepositoryTest {
 	public void update() {
 		Professor newProfessor = new Professor();
 		newProfessor.setName("Rafael Lopes");
-		newProfessor.setId(1L);
+		newProfessor.setCpf("12345678900");
+		newProfessor.setDepartmentId(1L);
+		newProfessor.setId(4L);
 		
 		System.out.println(professorRepository.save(newProfessor));
 	}
