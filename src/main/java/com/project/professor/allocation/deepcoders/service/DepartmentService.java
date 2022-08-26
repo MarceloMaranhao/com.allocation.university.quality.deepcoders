@@ -9,6 +9,7 @@ import com.project.professor.allocation.deepcoders.repository.DepartmentReposito
 
 @Service
 public class DepartmentService {
+	
 	private final DepartmentRepository departmentRepository;
 
 	public DepartmentService(DepartmentRepository departmentRepository) {

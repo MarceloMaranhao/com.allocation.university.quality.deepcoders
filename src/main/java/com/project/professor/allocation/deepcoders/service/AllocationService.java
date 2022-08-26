@@ -20,6 +20,16 @@ public class AllocationService {
 		this.allocationRepository = allocationRepository;
 	}
 	
+	public List<Allocation> findByCourseId(Long courseId){
+		List<Allocation> searched = allocationRepository.findByCourseId(courseId);
+		return searched;
+	}
+	
+	public List<Allocation> findByProfessorId(Long professorId){
+		List<Allocation> searched = allocationRepository.findByProfessorId(professorId);
+		return searched;
+	}
+	
 	public Allocation findById(Long id) {
 		Allocation allocation = allocationRepository.findById(id).orElse(null);
 		return allocation;

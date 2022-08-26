@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,26 @@ public class AllocationRepositoryTest {
 	
 	@Autowired
     AllocationRepository allocationRepository;
+	
+	@Test
+	public void findByCourseId() {
+		List<Allocation> allocationById = allocationRepository.findByCourseId(1L);
+		
+		System.out.println(allocationById);
+	}
+	
+	@Test
+	public void findByProfessorId() {
+		List<Allocation> allocationById = allocationRepository.findByProfessorId(4L);
+		
+		System.out.println(allocationById);
+	}
+	
+	@Test
+	public void findById() {
+		Optional<Allocation> allocationById = allocationRepository.findById(1L);
+		System.out.println(allocationById.orElse(null));
+	}
 	
 	@Test
 	public void findAll() {
