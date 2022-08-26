@@ -22,6 +22,24 @@ public class ProfessorRepositoryTest {
     ProfessorRepository professorRepository;
 	
 	@Test
+	public void findByDepartmentId() {
+		List<Professor> professors = professorRepository.findByDepartmentId(1L);
+		System.out.println(professors);
+	}
+	
+	@Test
+	public void findByCpf() {
+		Professor searched = professorRepository.findByCpf("12345678900");
+		System.out.println(searched);
+	}
+	
+	@Test
+	public void findByNameLike() {
+		List<Professor> searched = professorRepository.findByNameLike("%Rafael%");
+		System.out.println(searched);
+	}
+	
+	@Test
 	public void findAll() {
 		List<Professor> AllProfessors = professorRepository.findAll();
 		System.out.println(AllProfessors);

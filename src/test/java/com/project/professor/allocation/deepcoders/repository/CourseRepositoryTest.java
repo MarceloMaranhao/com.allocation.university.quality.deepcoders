@@ -21,6 +21,12 @@ public class CourseRepositoryTest {
     CourseRepository courseRepository;
 	
 	@Test
+	public void findByNameLike() {
+		List<Course> searched = courseRepository.findByNameLike("%Logic%");
+		System.out.println(searched);
+	}
+	
+	@Test
 	public void findAll() {
 		List<Course> AllCourses = courseRepository.findAll();
 		System.out.println(AllCourses);
