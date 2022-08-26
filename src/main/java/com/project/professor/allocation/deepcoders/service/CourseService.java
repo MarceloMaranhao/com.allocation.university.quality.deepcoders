@@ -46,8 +46,8 @@ public class CourseService {
 		courseRepository.save(Course);
 	}
 
-	public void delete(Course Course) {
-		courseRepository.delete(Course);
+	public void deleteById(Long id) {
+		courseRepository.deleteById(id);
 	}
 
 	public void deleteAllInBatch() {

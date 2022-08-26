@@ -61,8 +61,8 @@ public class ProfessorService {
 		professorRepository.save(professor);
 	}
 
-	public void delete(Professor professor) {
-		professorRepository.delete(professor);
+	public void deleteById(Long id) {
+		professorRepository.deleteById(id);
 	}
 
 	public void deleteAllInBatch() {

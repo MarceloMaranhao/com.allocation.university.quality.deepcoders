@@ -67,8 +67,8 @@ public class AllocationService {
 		allocationRepository.save(allocation);
 	}
 
-	public void delete(Allocation allocation) {
-		allocationRepository.delete(allocation);
+	public void deleteById(Long id) {
+		allocationRepository.deleteById(id);
 	}
 
 	public void deleteAllInBatch() {
