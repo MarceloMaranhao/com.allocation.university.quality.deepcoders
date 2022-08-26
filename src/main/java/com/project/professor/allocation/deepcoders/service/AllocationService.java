@@ -1,8 +1,5 @@
 package com.project.professor.allocation.deepcoders.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -39,39 +36,27 @@ public class AllocationService {
 		List<Allocation> allocations = allocationRepository.findAll();
 		return allocations;
 	}
-
-	public void create(Long courseId, Long professorId, DayOfWeek day, String start, String end) throws ParseException {
-		SimpleDateFormat newDate = new SimpleDateFormat("HH:mmZ");
-		Allocation newAllocation = new Allocation();
-		newAllocation.setId(null);
-		newAllocation.setCourseId(courseId);
-		newAllocation.setProfessorId(professorId);
-		newAllocation.setDay(day);
-		newAllocation.setStart(newDate.parse(start));
-		newAllocation.setEnd(newDate.parse(end));
-		
-		allocationRepository.save(newAllocation);
+	
+	public Allocation create(Allocation allocation) {
+		allocation.setId(null);
+		return allocationRepository.save(allocation);
 	}
-
-	public void update(Allocation allocation, Long courseId, Long professorId, DayOfWeek day, String start, String end) throws ParseException {
-		SimpleDateFormat newDate = new SimpleDateFormat("HH:mmZ");
-		Long id = allocation.getId();
-		
-		allocation.setId(id);
-		allocation.setCourseId(courseId);
-		allocation.setProfessorId(professorId);
-		allocation.setDay(day);
-		allocation.setStart(newDate.parse(start));
-		allocation.setEnd(newDate.parse(end));
-		
-		allocationRepository.save(allocation);
+	
+	public Allocation update(Allocation allocation) {
+		Long id = allocation.getId();	
+		if(id!=null && allocationRepository.existsById(id))
+			return allocationRepository.save(allocation);
+		else
+			return null;
 	}
 
 	public void deleteById(Long id) {
-		allocationRepository.deleteById(id);
+		if(allocationRepository.existsById(id))
+			allocationRepository.deleteById(id);
 	}
 
 	public void deleteAllInBatch() {
 		allocationRepository.deleteAllInBatch();
 	}
+	
 }

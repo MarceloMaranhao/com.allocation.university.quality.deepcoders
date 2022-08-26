@@ -32,22 +32,22 @@ public class CourseService {
 		return Courses;
 	}
 
-	public void create(String name) {
-		Course newCourse = new Course();
-		newCourse.setId(null);
-		newCourse.setName(name);
-		courseRepository.save(newCourse);
+	public Course create(Course course) {
+		course.setId(null);
+		return courseRepository.save(course);
 	}
 
-	public void update(Course Course, String name, String cpf) {
+	public Course update(Course Course) {
 		Long id = Course.getId();
-		Course.setId(id);
-		Course.setName(name);
-		courseRepository.save(Course);
+		if (id!=null&&courseRepository.existsById(id))
+			return courseRepository.save(Course);
+		else
+			return null;
 	}
 
 	public void deleteById(Long id) {
-		courseRepository.deleteById(id);
+		if(courseRepository.existsById(id))
+			courseRepository.deleteById(id);
 	}
 
 	public void deleteAllInBatch() {

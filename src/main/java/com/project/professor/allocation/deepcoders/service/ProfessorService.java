@@ -42,27 +42,22 @@ public class ProfessorService {
 		return professors;
 	}
 
-	public void create(String name, String cpf, Long departmentId) {
-		Professor newProfessor = new Professor();
-		newProfessor.setId(null);
-		newProfessor.setName(name);
-		newProfessor.setCpf(cpf);
-		newProfessor.setDepartmentId(departmentId);
-		professorRepository.save(newProfessor);
+	public Professor create(Professor professor) {
+		professor.setId(null);
+		return professorRepository.save(professor);
 	}
 
-	public void update(Professor professor, String name, String cpf) {
+	public Professor update(Professor professor) {
 		Long id = professor.getId();
-		Long departmentId = professor.getDepartmentId();
-		professor.setId(id);
-		professor.setName(name);
-		professor.setCpf(cpf);
-		professor.setDepartmentId(departmentId);
-		professorRepository.save(professor);
+		if(id!=null && professorRepository.existsById(id))
+			return professorRepository.save(professor);
+		else
+			return null;
 	}
 
 	public void deleteById(Long id) {
-		professorRepository.deleteById(id);
+		if(professorRepository.existsById(id))
+			professorRepository.deleteById(id);
 	}
 
 	public void deleteAllInBatch() {
