@@ -17,8 +17,8 @@ public class CourseService {
 		this.courseRepository = courseRepository;
 	}
 	
-	public List<Course> findByNameLike(String name){
-		List<Course> courses = courseRepository.findByNameLike(name);
+	public List<Course> findByNameContaining(String name){
+		List<Course> courses = courseRepository.findByNameContaining(name);
 		return courses;
 	}
 	

@@ -35,7 +35,7 @@ public class ProfessorRepositoryTest {
 	
 	@Test
 	public void findByNameLike() {
-		List<Professor> searched = professorRepository.findByNameLike("%Rafael%");
+		List<Professor> searched = professorRepository.findByNameContaining("Rafael");
 		System.out.println(searched);
 	}
 	

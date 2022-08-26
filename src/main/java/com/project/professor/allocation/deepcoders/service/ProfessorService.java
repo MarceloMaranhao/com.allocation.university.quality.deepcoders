@@ -27,8 +27,8 @@ public class ProfessorService {
 		return searched;
 	}
 	
-	public List<Professor> findByNameLike(String name){
-		List<Professor> professors = professorRepository.findByNameLike(name);
+	public List<Professor> findByNameContaining(String name){
+		List<Professor> professors = professorRepository.findByNameContaining(name);
 		return professors;
 	}
 

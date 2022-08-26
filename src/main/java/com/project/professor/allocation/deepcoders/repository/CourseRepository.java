@@ -10,6 +10,6 @@ import com.project.professor.allocation.deepcoders.entity.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 	
-	List<Course> findByNameLike(String name);
+	List<Course> findByNameContaining(String name);
 	
 }

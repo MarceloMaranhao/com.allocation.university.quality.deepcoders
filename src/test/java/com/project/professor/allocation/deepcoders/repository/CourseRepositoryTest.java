@@ -22,7 +22,7 @@ public class CourseRepositoryTest {
 	
 	@Test
 	public void findByNameLike() {
-		List<Course> searched = courseRepository.findByNameLike("%Logic%");
+		List<Course> searched = courseRepository.findByNameContaining("Logic");
 		System.out.println(searched);
 	}
 	
