@@ -5,18 +5,27 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.professor.allocation.deepcoders.entity.Allocation;
+import com.project.professor.allocation.deepcoders.entity.Course;
+import com.project.professor.allocation.deepcoders.entity.Professor;
 import com.project.professor.allocation.deepcoders.repository.AllocationRepository;
 
 @Service
 public class AllocationService {
 	
 	private final AllocationRepository allocationRepository;
+	private final ProfessorService professorService;
+    private final CourseService courseService;
 
-	public AllocationService(AllocationRepository allocationRepository) {
+	
+	
+	public AllocationService(AllocationRepository allocationRepository, ProfessorService professorService,
+			CourseService courseService) {
 		super();
 		this.allocationRepository = allocationRepository;
+		this.professorService = professorService;
+		this.courseService = courseService;
 	}
-	
+
 	public List<Allocation> findByCourseId(Long courseId){
 		List<Allocation> searched = allocationRepository.findByCourseId(courseId);
 		return searched;
@@ -37,16 +46,31 @@ public class AllocationService {
 		return allocations;
 	}
 	
+	private Allocation saveInternal(Allocation allocation) {
+		long professorId = allocation.getProfessorId();
+		Professor professor = professorService.findById(professorId);
+		
+		long courseId = allocation.getCourseId();
+		Course course = courseService.findById(courseId);
+		
+		Allocation allocationSaved = allocationRepository.save(allocation);
+		allocationSaved.setProfessor(professor);
+		allocationSaved.setCourse(course);
+		
+		return allocationSaved;
+	}
+	
 	public Allocation create(Allocation allocation) {
 		allocation.setId(null);
-		return allocationRepository.save(allocation);
+		
+		return saveInternal(allocation);
 	}
 	
 	public Allocation update(Allocation allocation) {
 		Long id = allocation.getId();	
-		if(id!=null && allocationRepository.existsById(id))
-			return allocationRepository.save(allocation);
-		else
+		if(id!=null && allocationRepository.existsById(id)) {
+			return saveInternal(allocation);
+		} else
 			return null;
 	}
 

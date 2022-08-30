@@ -39,7 +39,7 @@ public class CourseService {
 
 	public Course update(Course Course) {
 		Long id = Course.getId();
-		if (id!=null&&courseRepository.existsById(id))
+		if (id!=null && courseRepository.existsById(id))
 			return courseRepository.save(Course);
 		else
 			return null;
@@ -50,7 +50,7 @@ public class CourseService {
 			courseRepository.deleteById(id);
 	}
 
-	public void deleteAllInBatch() {
+	public void deleteAll() {
 		courseRepository.deleteAllInBatch();
 	}
 

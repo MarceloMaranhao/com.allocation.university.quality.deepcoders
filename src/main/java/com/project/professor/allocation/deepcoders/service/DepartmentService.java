@@ -27,25 +27,27 @@ public class DepartmentService {
 		return departments;
 	}
 	
-	public void create(String name) {
-		Department newDepartment = new Department();
-		newDepartment.setId(null);
-		newDepartment.setName(name);
-		departmentRepository.save(newDepartment);
+	public Department create(Department department) {
+		department.setId(null);
+		return departmentRepository.save(department);
 	}
 	
-	public void update(Department department, String name) {
+	public Department update(Department department) {
 		Long id = department.getId();
-		department.setId(id);
-		department.setName(name);
-		departmentRepository.save(department);
+		if(id!=null && departmentRepository.existsById(id)) {
+			department.setId(id);
+			return departmentRepository.save(department);
+		} else
+			return null;
+		
 	}
 	
 	public void deleteById(Long id) {
-		departmentRepository.deleteById(id);
+		if(departmentRepository.existsById(id))
+			departmentRepository.deleteById(id);
 	}
 	
-	public void deleteAllInBatch() {
+	public void deleteAll() {
 		departmentRepository.deleteAllInBatch();
 	}
 }
