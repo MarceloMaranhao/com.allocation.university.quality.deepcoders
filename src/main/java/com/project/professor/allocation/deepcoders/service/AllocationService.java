@@ -15,8 +15,6 @@ public class AllocationService {
 	private final AllocationRepository allocationRepository;
 	private final ProfessorService professorService;
     private final CourseService courseService;
-
-	
 	
 	public AllocationService(AllocationRepository allocationRepository, ProfessorService professorService,
 			CourseService courseService) {
@@ -46,20 +44,6 @@ public class AllocationService {
 		return allocations;
 	}
 	
-	private Allocation saveInternal(Allocation allocation) {
-		long professorId = allocation.getProfessorId();
-		Professor professor = professorService.findById(professorId);
-		
-		long courseId = allocation.getCourseId();
-		Course course = courseService.findById(courseId);
-		
-		Allocation allocationSaved = allocationRepository.save(allocation);
-		allocationSaved.setProfessor(professor);
-		allocationSaved.setCourse(course);
-		
-		return allocationSaved;
-	}
-	
 	public Allocation create(Allocation allocation) {
 		allocation.setId(null);
 		
@@ -79,8 +63,52 @@ public class AllocationService {
 			allocationRepository.deleteById(id);
 	}
 
-	public void deleteAllInBatch() {
+	public void deleteAll() {
 		allocationRepository.deleteAllInBatch();
+	}
+	
+	private Allocation saveInternal(Allocation allocation) {
+		if(!isEndHourGreaterThanStartHour(allocation) || hasCollision(allocation)) {
+			throw new RuntimeException();
+		} else {
+			long professorId = allocation.getProfessorId();
+			Professor professor = professorService.findById(professorId);
+			
+			long courseId = allocation.getCourseId();
+			Course course = courseService.findById(courseId);
+			
+			Allocation allocationSaved = allocationRepository.save(allocation);
+			allocationSaved.setProfessor(professor);
+			allocationSaved.setCourse(course);
+			
+			return allocationSaved;
+		}
+	}
+	
+	boolean isEndHourGreaterThanStartHour(Allocation allocation) {
+	    return allocation != null && allocation.getStart() != null && allocation.getEnd() != null
+	            && allocation.getEnd().compareTo(allocation.getStart()) > 0;
+	}
+	
+	private boolean hasCollision(Allocation allocation) {
+		boolean hasCollision = false;
+		
+		List<Allocation> allAllocations = allocationRepository.findByProfessorId(allocation.getProfessorId());
+		
+		for (Allocation searched : allAllocations) {
+			hasCollision = hasCollision(searched,allocation);
+			if(hasCollision)
+					break;
+		}
+		
+		return hasCollision;
+	}
+	
+	private boolean hasCollision(Allocation currentAllocation, Allocation newAllocation) {
+		return !currentAllocation.getId().equals(newAllocation.getId())
+				&& currentAllocation.getDay() == newAllocation.getDay()
+				&& currentAllocation.getStart().compareTo(newAllocation.getStart())<0
+				&& currentAllocation.getEnd().compareTo(newAllocation.getEnd())<0;
 	}
 	
 }

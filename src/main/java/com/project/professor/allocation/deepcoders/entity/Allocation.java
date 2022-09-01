@@ -20,31 +20,31 @@ public class Allocation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Enumerated(value=EnumType.STRING)
-	@Column(nullable=false, length = 16)
+
+	@Enumerated(value = EnumType.STRING)
+	@Column(nullable = false, length = 16)
 	private DayOfWeek day;
-	
-	@Temporal(value=TemporalType.TIME)
-	@Column(nullable=false)
+
+	@Temporal(value = TemporalType.TIME)
+	@Column(nullable = false)
 	private Date start;
-	
-	@Temporal(value=TemporalType.TIME)
-	@Column(nullable=false)
+
+	@Temporal(value = TemporalType.TIME)
+	@Column(nullable = false)
 	private Date end;
-	
-	@Column(name="course_id",nullable=false)
+
+	@Column(name = "course_id", nullable = false)
 	private Long courseId;
-	
-	@Column(name="professor_id",nullable=false)
+
+	@Column(name = "professor_id", nullable = false)
 	private Long professorId;
-	
+
 	@ManyToOne
-	@JoinColumn(name="course_id",nullable=false,insertable=false,updatable=false)
+	@JoinColumn(name = "course_id", nullable = false, insertable = false, updatable = false)
 	private Course course;
-	
+
 	@ManyToOne
-	@JoinColumn(name="professor_id",nullable=false,insertable=false,updatable=false)
+	@JoinColumn(name = "professor_id", nullable = false, insertable = false, updatable = false)
 	private Professor professor;
 
 	public Allocation() {
@@ -114,11 +114,11 @@ public class Allocation {
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", courseId=" + courseId
-				+ ", professorId=" + professorId + "]";
+				+ ", professorId=" + professorId + ", course=" + course + ", professor=" + professor + "]";
 	}
 
 }
