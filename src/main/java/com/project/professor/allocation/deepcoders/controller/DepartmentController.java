@@ -52,8 +52,8 @@ public class DepartmentController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Department> create(@RequestBody Department department){
 		try {
-			Department depart = departmentService.create(department);
-			return new ResponseEntity<Department>(depart, HttpStatus.CREATED);
+			Department newDepartment = departmentService.create(department);
+			return new ResponseEntity<Department>(newDepartment, HttpStatus.CREATED);
 		} catch (Exception ex) {
 			return new ResponseEntity<Department>(HttpStatus.BAD_REQUEST);
 		}
@@ -64,11 +64,11 @@ public class DepartmentController {
 											 @PathVariable(name = "department_id") Long departmentId){
 		try {
 			department.setId(departmentId);
-			Department depart = departmentService.update(department);
-			if(depart == null) {
+			Department existingDepartment = departmentService.update(department);
+			if(existingDepartment == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else { 
-				return new ResponseEntity<Department>(depart, HttpStatus.OK);
+				return new ResponseEntity<Department>(existingDepartment, HttpStatus.OK);
 			}
 		} catch (Exception ex) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
