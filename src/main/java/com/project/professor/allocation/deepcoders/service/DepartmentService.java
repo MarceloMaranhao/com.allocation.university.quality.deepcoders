@@ -17,6 +17,11 @@ public class DepartmentService {
 		this.departmentRepository = departmentRepository;
 	}
 	
+	public List<Department> findByNameContaining(String name) {
+		List<Department> department = departmentRepository.findByNameContaining(name);
+		return department;
+	}
+	
 	public Department findById(Long id) {
 		Department department = departmentRepository.findById(id).orElse(null);
 		return department;
