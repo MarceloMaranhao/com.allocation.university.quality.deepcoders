@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 import com.project.professor.allocation.deepcoders.entity.Professor;
 
 @RestController
-@RequestMapping(path="/professor")
+@RequestMapping(path="/professors")
 public class ProfessorController {
 	private final ProfessorService professorService;
 
@@ -72,7 +72,7 @@ public class ProfessorController {
 		@ApiResponse(code = 400, message = "BAD REQUEST"),
 		@ApiResponse(code = 404, message = "NOT FOUND")
 	})
-	@GetMapping(path="/{cpf}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path="/cpf/{cpf}",produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Professor> findByCpf(@RequestParam(name="cpf") String cpf){
 		Professor professor;

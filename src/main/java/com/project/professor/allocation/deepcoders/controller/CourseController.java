@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(path="/course")
+@RequestMapping(path="/courses")
 public class CourseController {
 	
 	private final CourseService courseService;

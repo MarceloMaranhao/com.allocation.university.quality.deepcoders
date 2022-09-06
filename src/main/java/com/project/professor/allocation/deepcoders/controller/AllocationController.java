@@ -67,7 +67,7 @@ public class AllocationController {
 		@ApiResponse(code = 400, message = "BAD REQUEST"),
 		@ApiResponse(code = 404, message = "NOT FOUND")
 	})
-	@GetMapping(path = "/{professor_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/professor/{professor_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Allocation>> findByProfessorId(@PathVariable(name="professor_id") Long professorId){
 		List<Allocation> searchedAllocation = allocationService.findByProfessorId(professorId);
@@ -84,7 +84,7 @@ public class AllocationController {
 		@ApiResponse(code = 400, message = "BAD REQUEST"),
 		@ApiResponse(code = 404, message = "NOT FOUND")
 	})
-	@GetMapping(path = "/{course_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/course/{course_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Allocation>> findByCourseId(@PathVariable(name="course_id") Long courseId){
 		List<Allocation> searchedAllocation = allocationService.findByCourseId(courseId);
