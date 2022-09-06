@@ -13,9 +13,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.professor.allocation.deepcoders.service.ProfessorService;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import com.project.professor.allocation.deepcoders.entity.Professor;
 
 @RestController
@@ -28,7 +34,12 @@ public class ProfessorController {
 		this.professorService = professorService;
 	}
 	
+	@ApiOperation(value="Find all professors")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "OK")
+	})
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Professor>> findAll(@RequestParam(name="name") String name){
 		List<Professor> professors;
 		if (name == null) {
@@ -39,7 +50,13 @@ public class ProfessorController {
 		return new ResponseEntity<>(professors, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value="Find a professor by Id")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 404, message = "NOT FOUND")
+	})
 	@GetMapping(path="/{professor_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Professor> findById(@PathVariable(name="professor_id") Long id){
 		Professor professor = professorService.findById(id);
 		if (professor == null) {
@@ -49,7 +66,14 @@ public class ProfessorController {
 		}
 	}
 	
+	@ApiOperation(value="Find a professor by CPF")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "BAD REQUEST"),
+		@ApiResponse(code = 404, message = "NOT FOUND")
+	})
 	@GetMapping(path="/{cpf}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Professor> findByCpf(@RequestParam(name="cpf") String cpf){
 		Professor professor;
 		if (cpf == null) {
@@ -65,7 +89,13 @@ public class ProfessorController {
 		}
 	}
 	
+	@ApiOperation(value="Create a professor")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "CREATED"),
+		@ApiResponse(code = 400, message = "BAD REQUEST")
+	})
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Professor> create(@RequestBody Professor professor){
 		try {
 			Professor newProfessor = professorService.create(professor);
@@ -76,7 +106,14 @@ public class ProfessorController {
 		}
 	}
 	
+	@ApiOperation(value="Update a professor by Id")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "BAD REQUEST"),
+		@ApiResponse(code = 404, message = "NOT FOUND")
+	})
 	@PutMapping(path="/{professor_id}",produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Professor> update(@RequestBody Professor professor,
 											@PathVariable(name="professor_id") Long professorId){
 		try {
@@ -93,13 +130,25 @@ public class ProfessorController {
 		}
 	}
 	
+	@ApiOperation(value="Delete a professor by Id")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "NO CONTENT"),
+		@ApiResponse(code = 404, message = "NOT FOUND")
+	})
 	@DeleteMapping(path="/{professor_id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> deleteById(@PathVariable(name="professor_id") Long id){
 		professorService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
+	@ApiOperation(value="Delete all professors")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "NO CONTENT"),
+		@ApiResponse(code = 404, message = "NOT FOUND")
+	})
 	@DeleteMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> deleteAll(){
 		professorService.deleteAll();
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -56,11 +56,11 @@ public class AllocationRepositoryTest {
 		Allocation newAllocation = new Allocation();
 		newAllocation.setCourseId(1L);
 		newAllocation.setProfessorId(4L);
-		newAllocation.setDay(DayOfWeek.MONDAY);
+		newAllocation.setDay(DayOfWeek.TUESDAY);
 		
 		SimpleDateFormat newDate = new SimpleDateFormat("HH:mmZ");
-		newAllocation.setStart(newDate.parse("12:00-0300"));
-		newAllocation.setEnd(newDate.parse("14:00-0300"));
+		newAllocation.setStart(newDate.parse("13:00-0300"));
+		newAllocation.setEnd(newDate.parse("15:00-0300"));
 		
 		System.out.println(allocationRepository.save(newAllocation));
 	}
