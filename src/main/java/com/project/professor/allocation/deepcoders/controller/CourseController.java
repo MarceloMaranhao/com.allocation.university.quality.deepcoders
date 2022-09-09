@@ -122,8 +122,7 @@ public class CourseController {
 	
 	@ApiOperation(value="Delete all courses")
 	@ApiResponses({
-		@ApiResponse(code = 204, message = "NO CONTENT"),
-		@ApiResponse(code = 404, message = "NOT FOUND")
+		@ApiResponse(code = 204, message = "NO CONTENT")
 	})
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)

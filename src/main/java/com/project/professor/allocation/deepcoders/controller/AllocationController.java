@@ -149,8 +149,7 @@ public class AllocationController {
 	
 	@ApiOperation(value="Delete all allocations")
 	@ApiResponses({
-		@ApiResponse(code = 204, message = "NO CONTENT"),
-		@ApiResponse(code = 404, message = "NOT FOUND")
+		@ApiResponse(code = 204, message = "NO CONTENT")
 	})
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)

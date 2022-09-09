@@ -144,8 +144,7 @@ public class ProfessorController {
 	
 	@ApiOperation(value="Delete all professors")
 	@ApiResponses({
-		@ApiResponse(code = 204, message = "NO CONTENT"),
-		@ApiResponse(code = 404, message = "NOT FOUND")
+		@ApiResponse(code = 204, message = "NO CONTENT")
 	})
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)

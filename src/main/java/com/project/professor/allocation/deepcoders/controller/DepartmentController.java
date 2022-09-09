@@ -119,8 +119,7 @@ public class DepartmentController {
 	
 	@ApiOperation(value="Delete all departments")
 	@ApiResponses({
-		@ApiResponse(code = 204, message = "NO CONTENT"),
-		@ApiResponse(code = 404, message = "NOT FOUND")
+		@ApiResponse(code = 204, message = "NO CONTENT")
 	})
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
