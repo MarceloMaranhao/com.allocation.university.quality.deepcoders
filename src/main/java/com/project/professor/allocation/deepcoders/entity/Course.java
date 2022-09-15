@@ -14,7 +14,7 @@ public class Course {
 	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	
 	@Column(nullable=false)
 	private String name;
@@ -24,11 +24,11 @@ public class Course {
 	}
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -41,7 +41,7 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [Id=" + Id + ", name=" + name + "]";
+		return "Course [Id=" + id + ", name=" + name + "]";
 	}
 
 }
